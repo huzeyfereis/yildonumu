@@ -37,7 +37,10 @@ function Closing() {
   }
 
   const scrollToStart = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    // A smooth scroll across the whole page fights scroll-snap and gets cut
+    // short, so jump straight there instead — it's such a long distance that
+    // an animation wouldn't read as smooth anyway.
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   const changeGalleryPhoto = (direction) => {
