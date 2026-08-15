@@ -153,6 +153,9 @@
 
 .year-card__next-year,
 .year-card__prev-year {
+  position: sticky;
+  z-index: 5;
+  flex-shrink: 0;
   border: none;
   background: none;
   padding: 0;
@@ -164,10 +167,12 @@
 }
 
 .year-card__next-year {
+  bottom: 14px;
   animation: year-card-bob-down 2.2s ease-in-out infinite;
 }
 
 .year-card__prev-year {
+  top: 14px;
   animation: year-card-bob-up 2.2s ease-in-out infinite;
   opacity: 0.7;
 }

@@ -28,8 +28,8 @@ function loadYouTubeApi() {
 
 function BackgroundMusic() {
   const playerRef = useRef(null)
-  const wantsPlayRef = useRef(false)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const wantsUnmuteRef = useRef(false)
+  const [isAudible, setIsAudible] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -49,11 +49,18 @@ function BackgroundMusic() {
           end: LOOP_END_SECONDS,
         },
         events: {
-          onReady: () => {
-            if (wantsPlayRef.current) playerRef.current?.playVideo?.()
+          onReady: (e) => {
+            // Muted autoplay is always allowed with no gesture — start the track
+            // running immediately so the only gesture-gated step left is unmuting,
+            // which browsers honor far more reliably than starting playback cold.
+            e.target.mute()
+            e.target.playVideo()
+            if (wantsUnmuteRef.current) {
+              e.target.unMute()
+              setIsAudible(true)
+            }
           },
           onStateChange: (e) => {
-            setIsPlaying(e.data === YT.PlayerState.PLAYING)
             if (e.data === YT.PlayerState.ENDED) {
               e.target.seekTo(0)
               e.target.playVideo()
@@ -71,33 +78,41 @@ function BackgroundMusic() {
 
   useEffect(() => {
     musicControls.play = () => {
-      wantsPlayRef.current = true
-      playerRef.current?.playVideo?.()
+      wantsUnmuteRef.current = true
+      const player = playerRef.current
+      if (!player) return
+      player.unMute()
+      player.playVideo()
+      setIsAudible(true)
     }
   }, [])
 
-  // Start music on the very first user interaction anywhere on the page —
-  // covers people who scroll straight past the hero instead of tapping the button.
+  // Unmute on the very first user interaction anywhere on the page — covers
+  // people who scroll straight past the hero instead of tapping the button.
   useEffect(() => {
-    const startOnFirstInteraction = () => musicControls.play()
+    const unmuteOnFirstInteraction = () => musicControls.play()
     // 'wheel'/'scroll'/'touchmove' don't count as a user gesture for autoplay —
     // only discrete events like these do, so catch the first one of any kind.
     const events = ['touchend', 'touchstart', 'mousedown', 'click', 'keydown']
     events.forEach((evt) =>
-      window.addEventListener(evt, startOnFirstInteraction, { once: true, passive: true })
+      window.addEventListener(evt, unmuteOnFirstInteraction, { once: true, passive: true })
     )
     return () => {
-      events.forEach((evt) => window.removeEventListener(evt, startOnFirstInteraction))
+      events.forEach((evt) => window.removeEventListener(evt, unmuteOnFirstInteraction))
     }
   }, [])
 
   const handleToggle = () => {
     const player = playerRef.current
     if (!player) return
-    if (isPlaying) {
-      player.pauseVideo()
+    if (isAudible) {
+      player.mute()
+      setIsAudible(false)
     } else {
+      wantsUnmuteRef.current = true
+      player.unMute()
       player.playVideo()
+      setIsAudible(true)
     }
   }
 
@@ -108,9 +123,9 @@ function BackgroundMusic() {
         type="button"
         className="bg-music-toggle"
         onClick={handleToggle}
-        aria-label={isPlaying ? 'müziği durdur' : 'müziği çal'}
+        aria-label={isAudible ? 'müziği sustur' : 'müziği aç'}
       >
-        {isPlaying ? '🎵' : '🔇'}
+        {isAudible ? '🎵' : '🔇'}
       </button>
     </>
   )
