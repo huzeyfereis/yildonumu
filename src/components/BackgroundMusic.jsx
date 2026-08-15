@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { musicControls } from '../lib/musicPlayer'
 import './BackgroundMusic.css'
 
-const TRACK_SRC = '/music/Lv2.mp3'
+// BASE_URL is '/' on Netlify/Cloudflare but '/yildonumu/' on GitHub Pages —
+// build it in instead of hardcoding a root-relative path.
+const TRACK_SRC = `${import.meta.env.BASE_URL}music/Lv2.mp3`
 
 function BackgroundMusic() {
   const audioRef = useRef(null)
