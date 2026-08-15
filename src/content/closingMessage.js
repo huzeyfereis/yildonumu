@@ -1,0 +1,2 @@
+// Kapanış mektubu — kendi cümlelerinle değiştir.
+export const closingMessage = `Hayatimin aski birtanem, su ana kadar geçirdiğimiz her an icin o kadar mutluyum ki bunu anlatmaya yetecek kelimeler bulamıyorum. Ömrümün sonuna kadar seninle daha nice anılar biriktirmek, beraber kurduğumuz daha nice hayalin gercege dönüştüğünü görmeyi dört gözle bekliyorum. İyi ki hayatımdasın iyi ki benimlesin yildonumumuz kutlu olsun. Canim esim biricik hayat arkadaşım seni çok seviyorum…`

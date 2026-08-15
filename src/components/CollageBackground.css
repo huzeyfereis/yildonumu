@@ -1,0 +1,48 @@
+.collage-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.collage-bg__grid {
+  position: absolute;
+  inset: -4%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3vw;
+}
+
+.collage-bg__tile {
+  aspect-ratio: 3 / 4;
+  transform: rotate(var(--rot));
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.collage-bg__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.85);
+}
+
+.collage-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 6, 13, 0.55) 0%,
+    rgba(8, 6, 13, 0.72) 50%,
+    rgba(8, 6, 13, 0.55) 100%
+  );
+  backdrop-filter: blur(2px);
+}
+
+@media (min-width: 700px) {
+  .collage-bg__grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

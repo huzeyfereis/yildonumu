@@ -1,0 +1,10 @@
+#app {
+  min-height: 100dvh;
+  position: relative;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+}

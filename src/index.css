@@ -1,0 +1,72 @@
+:root {
+  --text: #e9e4dc;
+  --text-h: #fbf6ee;
+  --text-muted: rgba(251, 246, 238, 0.65);
+  --bg: #0f0b12;
+  --accent: #e8b45c;
+  --accent-soft: rgba(232, 180, 92, 0.18);
+
+  --heading: 'Playfair Display', Georgia, serif;
+  --sans: 'Cormorant Garamond', Georgia, serif;
+  --handwriting: 'Caveat', 'Cormorant Garamond', cursive;
+
+  font: 20px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 18px;
+  }
+}
+
+html {
+  scroll-snap-type: y proximity;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 44px;
+  letter-spacing: 0.4px;
+  margin: 0;
+  @media (max-width: 1024px) {
+    font-size: 32px;
+  }
+}
+h2 {
+  font-size: 28px;
+  line-height: 118%;
+  letter-spacing: 0.2px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 22px;
+  }
+}
+p {
+  margin: 0;
+}
