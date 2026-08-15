@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import { useTypewriter } from '../hooks/useTypewriter'
 import './TimelineItem.css'
@@ -12,6 +12,16 @@ function TimelineItem({ id, year, photos, note, prevId, nextId }) {
   const typedNote = useTypewriter(note, { active: inView })
 
   const hasMultiple = photos.length > 1
+
+  // Preload every photo for this year as soon as the card is in view, so the
+  // flip arrow never has to wait on a network fetch mid-animation.
+  useEffect(() => {
+    if (!inView) return
+    photos.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [inView, photos])
 
   const showNextPhoto = () => {
     if (!hasMultiple || isFlipping) return

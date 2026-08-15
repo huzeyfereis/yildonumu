@@ -80,7 +80,9 @@ function BackgroundMusic() {
   // covers people who scroll straight past the hero instead of tapping the button.
   useEffect(() => {
     const startOnFirstInteraction = () => musicControls.play()
-    const events = ['touchstart', 'mousedown', 'wheel', 'keydown']
+    // 'wheel'/'scroll'/'touchmove' don't count as a user gesture for autoplay —
+    // only discrete events like these do, so catch the first one of any kind.
+    const events = ['touchend', 'touchstart', 'mousedown', 'click', 'keydown']
     events.forEach((evt) =>
       window.addEventListener(evt, startOnFirstInteraction, { once: true, passive: true })
     )

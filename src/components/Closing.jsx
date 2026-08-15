@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import { useTypewriter } from '../hooks/useTypewriter'
 import Confetti from './Confetti'
@@ -18,6 +18,16 @@ function Closing() {
   const [galleryIndex, setGalleryIndex] = useState(0)
   const [isFlipping, setIsFlipping] = useState(false)
   const [flipDirection, setFlipDirection] = useState('next')
+
+  // Warm the browser cache for the whole gallery while they're reading the
+  // letter, so flipping through photos never has to wait on a fetch.
+  useEffect(() => {
+    if (!inView) return
+    bgPhotos.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [inView])
 
   const scrollToLastYear = () => {
     const lastYear = years[years.length - 1]

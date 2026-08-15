@@ -61,8 +61,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
-  padding: 36px 26px;
+  gap: 16px;
+  padding: 30px 26px;
   border-radius: 18px;
   background: linear-gradient(
     165deg,
@@ -113,7 +113,7 @@
 }
 
 .closing__counter {
-  padding-top: 10px;
+  padding-top: 6px;
   border-top: 1px solid rgba(232, 180, 92, 0.25);
   width: 100%;
 }

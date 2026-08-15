@@ -42,15 +42,19 @@
 }
 
 .live-counter--small {
-  gap: 10px 8px;
-  max-width: 280px;
+  gap: 6px 6px;
+  max-width: 240px;
+}
+
+.live-counter--small .live-counter__unit {
+  gap: 0;
 }
 
 .live-counter--small .live-counter__value {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .live-counter--small .live-counter__label {
-  font-size: 10px;
-  letter-spacing: 0.4px;
+  font-size: 8px;
+  letter-spacing: 0.3px;
 }
