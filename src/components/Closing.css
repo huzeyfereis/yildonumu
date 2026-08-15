@@ -10,13 +10,22 @@
   box-sizing: border-box;
   scroll-snap-align: start;
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.7s ease;
   overflow: hidden;
 }
 
 .closing.is-visible {
   opacity: 1;
+}
+
+/* kept transform off .closing itself — it would otherwise become a
+   containing block and break position:fixed on .closing__restart */
+.closing__frame {
+  transform: translateY(28px);
+  transition: transform 0.7s ease;
+}
+
+.closing.is-visible .closing__frame {
   transform: translateY(0);
 }
 
@@ -216,4 +225,23 @@
   background: rgba(15, 11, 18, 0.55);
   padding: 3px 8px;
   border-radius: 20px;
+}
+
+.closing__restart {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 180, 92, 0.6);
+  background: rgba(15, 11, 18, 0.65);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
 }

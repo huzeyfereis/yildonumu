@@ -36,6 +36,10 @@ function Closing() {
       ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  const scrollToStart = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const changeGalleryPhoto = (direction) => {
     if (isFlipping) return
     setFlipDirection(direction)
@@ -61,6 +65,17 @@ function Closing() {
       </button>
 
       {inView && <Confetti />}
+
+      {inView && (
+        <button
+          type="button"
+          className="closing__restart"
+          onClick={scrollToStart}
+          aria-label="başa dön"
+        >
+          🔝
+        </button>
+      )}
 
       <div className="closing__frame">
         <span className="closing__label">11 yıl… ve daha nicesine</span>
